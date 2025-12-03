@@ -65,14 +65,25 @@ st.set_page_config(
 )
 
 # Automatically load ElevenLabs API key from Supabase on startup
+# Automatically load ElevenLabs API key from Supabase on startup
 if SUPABASE_AVAILABLE:
     if 'supabase_manager' not in st.session_state:
         st.session_state.supabase_manager = SupabaseManager()
     supabase_manager = st.session_state.supabase_manager
+    
+    # Try to connect if credentials exist in session state
+    if st.session_state.get('supabase_url') and st.session_state.get('supabase_key'):
+        if not supabase_manager.client:
+            supabase_manager.initialize(st.session_state.supabase_url, st.session_state.supabase_key)
+            
     # If user is authenticated, load API key
     if st.session_state.get('supabase_user'):
         supabase_manager.user = st.session_state['supabase_user']
-        supabase_manager.load_elevenlabs_api_key()
+        saved_key = supabase_manager.load_elevenlabs_api_key()
+        if saved_key:
+            st.session_state.api_key = saved_key
+            # Also update environment variable for this session
+            os.environ['ELEVENLABS_API_KEY'] = saved_key
 
 # Load custom CSS
 def load_css():

@@ -24,7 +24,14 @@ class SupabaseManager:
         try:
             if not self.client or not self.user:
                 return None
-            response = self.client.table('api_keys').select('api_key').eq('user_id', self.user.id).limit(1).execute()
+            
+            # Check if table exists first to avoid crashing on fresh installs
+            try:
+                response = self.client.table('api_keys').select('api_key').eq('user_id', self.user.id).limit(1).execute()
+            except Exception:
+                # Table might not exist yet
+                return None
+
             api_key = None
             if response.data and len(response.data) > 0:
                 api_key = response.data[0].get('api_key')
@@ -32,7 +39,8 @@ class SupabaseManager:
                     st.session_state['api_key'] = api_key
             return api_key
         except Exception as e:
-            st.error(f"Error loading ElevenLabs API key from Supabase: {e}")
+            # Silent failure is better here to avoid annoying popups on startup
+            print(f"Error loading ElevenLabs API key from Supabase: {e}")
             return None
 
     def save_elevenlabs_api_key(self, api_key: str) -> bool:
