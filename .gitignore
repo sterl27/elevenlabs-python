@@ -3,3 +3,13 @@
 __pycache__/
 dist/
 poetry.toml
+.env
+.env.local
+env.local
+venv/
+.vscode/
+.idea/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store

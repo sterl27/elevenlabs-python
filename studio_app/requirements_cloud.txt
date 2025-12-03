@@ -1,0 +1,19 @@
+# ElevenLabs Studio Cloud Integration Requirements
+# Install these for full cloud functionality
+
+# Core dependencies (already in main requirements.txt)
+streamlit>=1.28.0
+elevenlabs>=1.0.0
+
+# Cloud integration dependencies
+supabase>=2.0.0
+python-dotenv>=1.0.0
+
+# Optional: For enhanced authentication
+python-jose[cryptography]>=3.3.0
+
+# Ethereum Voice Tagging (included in core)
+# No additional dependencies required
+
+# Install command:
+# pip install -r requirements_cloud.txt
