@@ -134,6 +134,49 @@ A comprehensive web application that provides a modern UI for all ElevenLabs API
    - Click "💾 Save API Key to Cloud" to securely store your ElevenLabs key.
 3. **Start Creating**: Choose any feature from the navigation menu.
 
+## ☁️ Deployment
+
+### Google Cloud Run (Recommended)
+
+This application is ready to be deployed to Google Cloud Run, which offers a generous free tier and automatic scaling.
+
+1.  **Install Google Cloud SDK**: Ensure you have the `gcloud` CLI installed and authenticated.
+
+2.  **Deploy Script**:
+    Run the included deployment script (Windows PowerShell):
+    ```powershell
+    .\deploy.ps1
+    ```
+    This script will:
+    - Check your authentication
+    - Set the project context
+    - Build and deploy the Docker container
+
+3.  **Environment Variables**:
+    For security, API keys are NOT included in the deployment. You must set them in the Cloud Console:
+    - Go to [Google Cloud Run Console](https://console.cloud.google.com/run)
+    - Select your service (`elevenlabs-studio`)
+    - Click **Edit & Deploy New Revision**
+    - Under **Variables & Secrets**, add:
+        - `ELEVENLABS_API_KEY`
+        - `SUPABASE_URL`
+        - `SUPABASE_KEY`
+    - Click **Deploy**
+
+### Docker
+
+You can also run the application locally using Docker:
+
+1.  **Build the image**:
+    ```bash
+    docker build -t elevenlabs-studio .
+    ```
+
+2.  **Run the container**:
+    ```bash
+    docker run -p 8080:8080 -e ELEVENLABS_API_KEY=your_key elevenlabs-studio
+    ```
+
 ## 📋 Usage Guide
 
 ### Text-to-Speech
