@@ -171,7 +171,9 @@ pages/
 └── ...
 
 studio_app/
-├── app.py                    # Updated with agent builder integration
+├── app.py                    # Main application router
+├── features/                 # Feature modules
+│   └── conversational_ai.py  # Agent builder integration
 ├── agent_builder_demo.py     # Standalone demo
 └── ...
 ```

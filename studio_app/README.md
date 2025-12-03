@@ -195,10 +195,10 @@ The app uses a centralized `style.css` file for theming. Modify this file to cha
 
 ### Features
 Add new features by:
-1. Creating new render functions
-2. Adding to the navigation menu
-3. Implementing API integrations
-4. Adding UI components
+1. Creating a new module in `features/` (e.g., `my_feature.py`)
+2. Implementing a `render_my_feature(studio)` function
+3. Importing it in `app.py`
+4. Adding it to the `feature_options` list in `app.py`
 
 ## 📁 Project Structure
 
@@ -210,6 +210,17 @@ studio_app/
 ├── requirements.txt      # Python dependencies
 ├── run.py               # Python launcher script
 ├── run.ps1              # PowerShell launcher script
+├── features/             # Feature modules
+│   ├── __init__.py
+│   ├── advanced_tools.py
+│   ├── analytics.py
+│   ├── audio_processing.py
+│   ├── cloud_integration.py
+│   ├── conversational_ai.py
+│   ├── dubbing.py
+│   ├── speech_to_speech.py
+│   ├── text_to_speech.py
+│   └── voice_design.py
 ├── pages/
 │   └── agent_builder.py # Advanced Agent Builder page
 ├── .streamlit/

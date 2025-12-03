@@ -1277,23 +1277,65 @@ class AgentBuilder:
         col1, col2, col3 = st.columns(3)
         
         with col1:
-            user_messages = len([m for m in conversation if m['role'] == 'user'])
+            st.metric("User Messages", user_messages)
+        
+        with col2:
+            agent_messages = len([m for m in conversation if m['role'] == 'agent'])
+            st.metric("Agent Messages", agent_messages)
+            
+        with col3:
+            total_messages = len(conversation)
+            st.metric("Total Messages", total_messages)
+
     def convert_to_elevenlabs_config(self, config: Dict[str, Any]) -> 'ConversationalConfig':
         """Convert internal config to ElevenLabs ConversationalConfig"""
-        # This is a placeholder - actual implementation would need to map
-        # all the configuration fields to the proper ElevenLabs types
         try:
-            return ConversationalConfig()
-        except Exception as e:
-            st.error(f"Config conversion error: {e}")
-            return ConversationalConfig()
-    
-    def convert_to_elevenlabs_config(self, config: Dict[str, Any]) -> 'ConversationalConfig':
-        """Convert internal config to ElevenLabs ConversationalConfig"""
-        # This is a placeholder - actual implementation would need to map
-        # all the configuration fields to the proper ElevenLabs types
-        try:
-            return ConversationalConfig()
+            # Extract config sections
+            conv_config = config.get('conversation', {})
+            voice_config = config.get('voice', {})
+            asr_config = config.get('asr', {})
+            turn_config = config.get('turn_detection', {})
+            
+            # TTS Config
+            tts_config = TtsConversationalConfigOutput(
+                voice_id=voice_config.get('voice_id', 'JBFqnCBsd6RMkjVDRZzb'),
+                model_id=voice_config.get('model_id', 'eleven_turbo_v2_5'),
+            )
+            
+            # Conversation Config
+            conversation_config = ConversationConfig(
+                max_duration_seconds=conv_config.get('max_duration_seconds', 600),
+                client_events=["audio", "interruption"],
+            )
+            
+            # ASR Config
+            asr_settings = AsrConversationalConfig(
+                quality="high",
+                provider=asr_config.get('provider', 'elevenlabs'),
+                user_input_audio_format="pcm_16000"
+            )
+            
+            # Turn Config
+            turn_settings = TurnConfig(
+                turn_timeout=float(conv_config.get('time_out_seconds', 30)),
+                mode=turn_config.get('type', 'server_vad')
+            )
+            
+            # Construct main config
+            return ConversationalConfig(
+                agent=AgentConfig(
+                    prompt={
+                        "prompt": conv_config.get('system_prompt', 'You are a helpful assistant.')
+                    },
+                    first_message=conv_config.get('first_message', 'Hello!'),
+                    language=conv_config.get('language', 'en')
+                ),
+                tts=tts_config,
+                conversation=conversation_config,
+                asr=asr_settings,
+                turn=turn_settings
+            )
+            
         except Exception as e:
             st.error(f"Config conversion error: {e}")
             return None

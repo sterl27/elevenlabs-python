@@ -249,6 +249,16 @@ class UIComponents:
                 else:
                     st.metric(label, value)
 
+    @staticmethod
+    def render_section_header(title: str, description: str):
+        """Render a consistent section header"""
+        st.markdown(f"""
+        <div class="section-header">
+            <h2>{title}</h2>
+            <p>{description}</p>
+        </div>
+        """, unsafe_allow_html=True)
+
 
 class ConfigManager:
     """Manage application configuration"""
@@ -258,6 +268,24 @@ class ConfigManager:
             'title': 'ElevenLabs Studio',
             'version': '1.0.0',
             'debug': False,
+        },
+        'models': {
+            'tts': {
+                'turbo': 'eleven_turbo_v2_5',
+                'multilingual': 'eleven_multilingual_v2',
+                'flash': 'eleven_flash_v2_5',
+                'monolingual': 'eleven_monolingual_v1',
+            },
+            'asr': {
+                'nova_2': 'nova-2',
+                'nova_1': 'nova-1',
+                'whisper': 'whisper-1',
+            }
+        },
+        'defaults': {
+            'voice_id': 'JBFqnCBsd6RMkjVDRZzb',
+            'model_id': 'eleven_turbo_v2_5',
+            'language': 'en',
         },
         'audio': {
             'default_format': 'mp3_44100_128',
