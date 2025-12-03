@@ -13,3 +13,11 @@ venv/
 *.pyo
 *.pyd
 .DS_Store
+
+# Audio files
+*.wav
+*.mp3
+*.m4a
+
+# Temp files
+temp_*
