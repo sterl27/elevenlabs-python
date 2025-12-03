@@ -127,12 +127,33 @@ A comprehensive web application that provides a modern UI for all ElevenLabs API
 ### First Time Setup
 
 1. **Enter API Key**: In the sidebar, enter your ElevenLabs API key.
-2. **Connect Supabase (Optional)**: 
+2. **Connect Supabase (Optional but Recommended)**: 
    - Go to "☁️ Cloud Features" in the sidebar.
    - Enter your Supabase URL and Anon Key.
    - Log in or Sign up to enable cloud storage and analytics.
    - Click "💾 Save API Key to Cloud" to securely store your ElevenLabs key.
+   - **Auto-Load Feature**: Once saved, your API key will automatically load whenever you sign in to Supabase, eliminating the need to enter it manually each time.
 3. **Start Creating**: Choose any feature from the navigation menu.
+
+## 🔐 API Key Management
+
+### Automatic Loading from Supabase
+The application now supports **automatic API key retrieval** from Supabase:
+
+1. **First Time**: Enter your API key manually and save it to Supabase.
+2. **Subsequent Sessions**: Simply sign in to Supabase, and your API key will be automatically loaded and configured.
+3. **Security**: Your API key is encrypted and stored securely in Supabase with Row Level Security (RLS) policies ensuring only you can access it.
+
+### Environment Variables (Alternative)
+You can also use environment variables for local development:
+```env
+ELEVENLABS_API_KEY=your_api_key_here
+```
+
+The priority order is:
+1. **Supabase** (if user is authenticated)
+2. **Environment Variable** (`.env` file)
+3. **Manual Entry** (sidebar input)
 
 ## ☁️ Deployment
 
