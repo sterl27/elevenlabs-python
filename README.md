@@ -10,6 +10,20 @@
 
 The official Python SDK for [ElevenLabs](https://elevenlabs.io/). ElevenLabs brings the most compelling, rich and lifelike voices to creators and developers in just a few lines of code.
 
+## 🎙️ ElevenLabs Studio App
+
+Looking for a visual interface? Check out the **ElevenLabs Studio App** included in this repository!
+
+![ElevenLabs Studio](https://img.shields.io/badge/ElevenLabs-Studio-blue?style=for-the-badge)
+
+The Studio App is a comprehensive Streamlit-based web application that provides a modern UI for:
+- 🎵 Text-to-Speech & Voice Design
+- 🤖 Conversational AI Agent Builder
+- 🔄 Speech-to-Speech & Dubbing
+- ☁️ Cloud Integration with Supabase
+
+[**👉 Go to Studio App Documentation**](studio_app/README.md)
+
 ## 📖 API & Docs
 
 Check out the [HTTP API documentation](https://elevenlabs.io/docs/api-reference).
